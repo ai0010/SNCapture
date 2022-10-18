@@ -125,12 +125,19 @@ function downloadFile(filename, content) {
   //use appendChild() method to move an element from one element to another
   document.body.appendChild(element);
   element.click();
+	
+type="text" name="name1" id="name1" onkeypress="return focusNext(this.form, 'name2', event)">
   
   //The removeChild() method of the Node interface removes a child node from the DOM and returns the removed node
   document.body.removeChild(element);
 };
 
 window.onload = () => {
+
+type="text" name="name1" id="name1" onkeypress="return focusNext(this.form, 'name2', event)"> 
+	
+	
+	
   document.getElementById('download').addEventListener('click', e => {    
 
 		 var taLineHeight = 20; // This should match the line-height in the CSS
@@ -158,5 +165,6 @@ window.onload = () => {
 	});
 };
 </script>
+	
 </body>
 </html>
