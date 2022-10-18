@@ -1,0 +1,63 @@
+<html lang="zh-ch">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Print Label</title>
+  <style media="screen">
+    @import url("https://fonts.googleapis.com/css?family=Kanit&display=swap");
+
+#printlabel {
+  background-color: #3ba9f4;
+  color: #fafa10;
+  font-size: 20px;
+  height: 50px;
+  border: none;
+  border-radius: 2px;
+  width: 174px;
+  cursor: pointer;
+}
+  </style>
+</head>
+<body>
+  Printer IP Address: <br>
+  <input type="text" id="ip_addr" value="128.1.1.28:9100" style="width:500px"><br><br>
+  Script: <br>
+  <textarea id="zpl" style="width:500px" rows = '20'>^XA^LL1218^PR3~SD25^CI28^MTT^MNA^FO20,20^A0N,30,30^FDThis is a Test^FS^A@N,48,48,E:MSJH.FNT^FO20,100^FH^FD_E4_B8_AD_E6_96_87^FS^A@N,48,48,E:MSJH.FNT^FO20,160^FD最新消息^FS^XZ</textarea><br><br>
+
+  <button id="printlabel">Print</button>
+
+  <div id="output"></div>
+  <script>
+      function printlabel() {
+          var zpl = document.getElementById("zpl").value;
+          var ip_addr = document.getElementById("ip_addr").value;
+          var output = document.getElementById("output");
+          var url = "http://" + ip_addr + "/pstprnt";
+          var method = "POST";
+          var async = true;
+          var request = new XMLHttpRequest();
+
+          request.onload = function () {
+              var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
+              var data = request.responseText; // Returned data, e.g., an HTML document.
+              output.innerHTML = "Status: " + status + "<br>" + data;
+          }
+
+          request.open(method, url, async);
+          request.setRequestHeader("Content-Length", zpl.length);
+
+          // Actually sends the request to the server.
+          request.send(zpl);
+	  window.location.reload();
+      }
+
+window.onload = () => {
+  document.getElementById('printlabel').addEventListener('click', e => {    
+		printlabel();
+	});
+};
+
+  </script>
+</body>
+</html>
